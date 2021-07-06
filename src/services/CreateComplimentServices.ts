@@ -1,6 +1,6 @@
-import { getCustomRepository } from "typeorm";
-import {ComplimentsRepositories} from "../repositories/ComplimentsRepositories";
-import { UsersRepositories } from "../repositories/UsersRepositories";
+import { getRepository } from "typeorm";
+import { Compliment } from "../entities/Compliments";
+import { User } from "../entities/User";
 
 interface IComplimentRequest{
     tag_id:string;
@@ -10,8 +10,8 @@ interface IComplimentRequest{
 }
 class CreateComplimentService{
     async execute({tag_id,user_sender,user_receiver,message}:IComplimentRequest){
-        const complimentsRepositories=getCustomRepository(ComplimentsRepositories);
-        const usersRepositories=getCustomRepository(UsersRepositories);
+        const complimentsRepositories = getRepository(Compliment);
+        const usersRepositories = getRepository(User);
         if(user_sender===user_receiver){
             throw new Error("Incorrect User Receiver");
         }

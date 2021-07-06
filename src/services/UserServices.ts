@@ -82,6 +82,10 @@ class UserServices{
                 targetFound.name = name;
             }
             if(email){
+                const itAlreadyExists = usersRepository.findOne({email});
+                if(itAlreadyExists){
+                    throw new BaseError(400, "E-mail already in use");
+                }
                 targetFound.email = email;
             }
             if(admin){
